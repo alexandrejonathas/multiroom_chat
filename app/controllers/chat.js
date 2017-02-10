@@ -11,5 +11,10 @@ module.exports.iniciaChat = function(application, req, res){
       return;
     }
 
-    res.render('chat/chat');
+    console.log('chegou na chamada para atualizar a lista de participantes');
+    application.get('io').emit('msgParaCliente', {apelido: usuario.apelido, msg: 'entrou no chat'});
+    application.get('io').emit('listaParticipantes', {apelido: usuario.apelido, acao: 'adicionar'});
+
+    res.render('chat/chat', {usuario: usuario});
+
 }
